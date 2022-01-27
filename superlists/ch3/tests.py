@@ -17,9 +17,7 @@ class HomePageTest(TestCase):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'home.html')
 
-    def test_can_post_a_to_list_item_naive(self):
-        response=self.client.post('/',data={"entry":"a new item"})
-        self.assertIn("a new item",response.content.decode())
+   
     def test_Can_post_a_real_value(self):
         response=self.client.post('/',data={"entry":"a new item"})
         self.assertIn("a new item",response.content.decode())

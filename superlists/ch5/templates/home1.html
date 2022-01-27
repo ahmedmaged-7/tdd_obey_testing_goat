@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>To-Do lists</title>
+    </head>
+    <body>
+        <h1>Your To-Do list</h1>
+        
+      <form method="POST">
+      <input id="the_to_do_item" name="to_do_name" placeholder="Enter a to-do item" />
+            {% csrf_token %}
+      </form>  
+
+      <table id="id_new_table">
+    <tr>
+<td>
+{{a_new_item}}
+    </td>
+
+    </tr>  
+    </table>
+        
+</body>
+</html>
