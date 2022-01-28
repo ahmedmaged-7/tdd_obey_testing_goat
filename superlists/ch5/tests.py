@@ -26,6 +26,10 @@ class HomePageTest(TestCase):
             items_stored=Item.objects.all().count()
             response=self.client.post('/',data={"to_do_name":"a new item"})
             self.assertEqual(items_stored+1,Item.objects.all().count())
-            
+             
+
+      def test_get_does_not_affect_db(self):
+            self.client.get('/')
+            self.assertEqual(Item.objects.all().count(),0)
             
            

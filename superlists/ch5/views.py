@@ -5,9 +5,9 @@ from ch5.models import Item
 
 
 def home_page(request):
-       to_Do_item=Item()
-       to_Do_item.to_do_list_value=request.POST.get("item_text",'')
-       to_Do_item.save()
        if(request.method=="POST"):
-           return    render(request,"home1.html",{"a_new_item":request.POST["to_do_name"],})
+              to_Do_item=Item()
+              to_Do_item.to_do_list_value=request.POST.get("to_do_name",'')
+              to_Do_item.save()
+              return    render(request,"home1.html",{"a_new_item":to_Do_item.to_do_list_value})
        return render(request,"home1.html")
