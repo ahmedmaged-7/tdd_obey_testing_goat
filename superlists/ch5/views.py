@@ -1,13 +1,16 @@
 from urllib import request
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from ch5.models import Item
 # Create your views here.
 
 
 def home_page(request):
        if(request.method=="POST"):
-              to_Do_item=Item()
-              to_Do_item.to_do_list_value=request.POST.get("to_do_name",'')
-              to_Do_item.save()
-              return    render(request,"home1.html",{"a_new_item":to_Do_item.to_do_list_value})
-       return render(request,"home1.html")
+              
+              to_do_text=request.POST.get("to_do_name",'')
+              Item.objects.create(to_do_list_value=to_do_text)
+              #return    render(request,"home1.html",{"a_new_item":to_do_text})4
+              return redirect('/')
+       items=Item.objects.all()
+      
+       return render(request,"home1.html",{"items":items})

@@ -12,12 +12,11 @@
     </form>  
 
       <table id="id_new_table">
-    <tr>
-<td>
-1: {{a_new_item}}
-    </td>
 
-    </tr>  
+       {% for item in items %}
+           <tr> <td> {{forloop.counter}}: {{item.to_do_list_value}} </td> </tr>  
+   
+       {% endfor %}
     </table>
         
 </body>
