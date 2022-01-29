@@ -1,8 +1,10 @@
 from selenium import webdriver
+from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.keys import Keys
 import time
 from django.test import LiveServerTestCase
 
+MAX_WAIT=5 #max time to wait for a row to appear
 class NewVisitorTest(LiveServerTestCase):
 
     def setUp(self):
@@ -11,10 +13,21 @@ class NewVisitorTest(LiveServerTestCase):
     def tearDown(self):
         self.browser.quit()
 
-    def check_row_exist(self,table_iD,row_text):
-         table = self.browser.find_element_by_id(table_iD)
-         rows = table.find_elements_by_tag_name('tr')
-         self.assertIn(row_text, [row.text for row in rows])
+     
+
+    def wait_for_row_in_table(self,table_iD,row_text):
+         start_time=time.time()
+         while(True):
+           try:
+             
+             table = self.browser.find_element_by_id(table_iD)
+             rows = table.find_elements_by_tag_name('tr')
+             self.assertIn(row_text, [row.text for row in rows])
+             return
+           except(AssertionError,WebDriverException)as e:
+               if(time.time()-start_time >MAX_WAIT):
+                   raise e
+               time.sleep(0.3)     
         
     def test_can_start_a_list_and_retrieve_it_later(self):
         # Edith has heard about a cool new online to-do app. She goes
@@ -37,22 +50,21 @@ class NewVisitorTest(LiveServerTestCase):
         # She types "Buy peacock feathers" into a text box (Edith's hobby
         # is tying fly-fishing lures)
         inputbox.send_keys('Buy peacock feathers')
+        inputbox.send_keys(Keys.ENTER)
 
+        self.wait_for_row_in_table("id_new_table","1: Buy peacock feathers")
+ 
         # When she hits enter, the page updates, and now the page lists
         # "1: Buy peacock feathers" as an item in a to-do list table
-        inputbox.send_keys(Keys.ENTER)
-        time.sleep(1)
 
         inputbox = self.browser.find_element_by_id('the_to_do_item')
 
 
         inputbox.send_keys('use peacok feathers to make a fly')        
         inputbox.send_keys(Keys.ENTER)
-        time.sleep(1)
 
         
-        self.check_row_exist("id_new_table","1: Buy peacock feathers")
-        self.check_row_exist("id_new_table","2: use peacok feathers to make a fly")
+        self.wait_for_row_in_table("id_new_table","2: use peacok feathers to make a fly")
        
        
 
