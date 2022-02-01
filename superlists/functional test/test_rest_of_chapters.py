@@ -29,7 +29,9 @@ class NewVisitorTest(LiveServerTestCase):
                    raise e
                time.sleep(0.3)     
         
-    def test_can_start_a_list_and_retrieve_it_later(self):
+
+
+    def old_test_can_start_a_list_and_retrieve_it_later(self):
         # Edith has heard about a cool new online to-do app. She goes
         # to check out its homepage
         self.browser.get(self.live_server_url)#it is live not life
@@ -72,6 +74,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.browser.get(self.live_server_url)
         inputbox = self.browser.find_element_by_id('the_to_do_item')
         inputbox.send_keys('Buy peacock feathers')
+        inputbox = self.browser.find_element_by_id('the_to_do_item')        
         inputbox.send_keys(Keys.ENTER)
         self.wait_for_row_in_table("id_new_table","1: Buy peacock feathers")
         inputbox = self.browser.find_element_by_id('the_to_do_item')
@@ -84,7 +87,6 @@ class NewVisitorTest(LiveServerTestCase):
         
         edith_url=self.browser.current_url
         self.assertRegex(edith_url,'/lists/.+')
-        print(edith_url)
         #a new user starts a session wants to add his items
 
         #a new hand touches the beacon :)
@@ -92,7 +94,8 @@ class NewVisitorTest(LiveServerTestCase):
         self.browser.quit()
         self.browser=webdriver.Firefox()
         self.browser.get(self.live_server_url)
-        page_text=self.browser.find_element_by_id("body").text
+        
+        page_text=self.browser.find_element_by_tag_name("body").text
         ##the page should be empty
         self.assertNotIn("1: Buy peacock feathers",page_text)
         

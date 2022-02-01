@@ -20,7 +20,8 @@ from ch5 import views as views_ch5
 from ch7 import views as views_ch7
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    #url(r'',views.home_page,name='home')
-    url(r'',views_ch7.home_page)
+    #url(r'',views.home_page,name='home')  #do not forget to add ,
+    url(r'^$',views_ch7.home_page),
+    url(r'^lists/the_only_list/$',views_ch7.view_list),
 
 ]

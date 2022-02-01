@@ -10,7 +10,20 @@ def home_page(request):
               to_do_text=request.POST.get("to_do_name",'')
               Item.objects.create(to_do_list_value=to_do_text)
               #return    render(request,"home1.html",{"a_new_item":to_do_text})4
-              return redirect('/lists/the_only_list')
+              return redirect('/lists/the_only_list/')
        items=Item.objects.all()
       
        return render(request,"home1.html",{"items":items})
+
+
+
+def view_list(request):
+       if(request.method=="POST"):
+              
+              to_do_text=request.POST.get("to_do_name",'')
+              Item.objects.create(to_do_list_value=to_do_text)
+              #return    render(request,"home1.html",{"a_new_item":to_do_text})4
+              return redirect('/lists/the_only_list/')
+       items=Item.objects.all()
+       return render(request,"list.html",{"items":items})
+

@@ -1,0 +1,18 @@
+<html>
+
+ <form method="POST" action="/">
+      <input id="the_to_do_item" name="to_do_name" placeholder="Enter a to-do item" />
+      {% csrf_token %}
+        
+    </form>  
+
+<table id="id_new_table">
+
+       {% for item in items %}
+           <tr> <td> {{forloop.counter}}: {{item.to_do_list_value}} </td> </tr>  
+   
+       {% endfor %}
+    </table>
+
+
+</html>
