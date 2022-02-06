@@ -11,9 +11,8 @@ def home_page(request):
               Item.objects.create(to_do_list_value=to_do_text)
               #return    render(request,"home1.html",{"a_new_item":to_do_text})4
               return redirect('/lists/the_only_list/')
-       items=Item.objects.all()
       
-       return render(request,"home1.html",{"items":items})
+       return render(request,"home1.html")
 
 
 
