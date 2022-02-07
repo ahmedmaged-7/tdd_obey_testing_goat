@@ -26,3 +26,9 @@ def view_list(request):
        items=Item.objects.all()
        return render(request,"list.html",{"items":items})
 
+
+
+def new_list(request):
+              Item.objects.create(to_do_list_value=request.POST.get("item_text",''))
+              return redirect('/lists/the_only_list/')#make sure what you passed in test and html value as 
+

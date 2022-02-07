@@ -37,15 +37,12 @@ class HomePageTest(TestCase):
             response=self.client.post('/',data={"to_do_name":"HEX"})
             self.assertEqual(response.status_code,302)
        
-      def depracated_test_reteriving_from_unit_test_Database_Works(self):
+      def test_reteriving_from_unit_test_Database_Works(self):
             Item.objects.create(to_do_list_value="HEX")            
             self.assertEqual(Item.objects.first().to_do_list_value,"HEX")
-            self.assertIn("HEX",self.client.get('/').content.decode())
-
-  
+            self.assertIn("HEX",self.client.get('/lists/the_only_list/').content.decode())
 
                     
-class NewListTest(TestCase) :          
       def test_url_redirects_to_list(self):
         response = self.client.post('/', data={'item_text': 'A new list item'})
         self.assertEqual(302,response.status_code)
@@ -65,3 +62,15 @@ class NewListTest(TestCase) :
             
             response = self.client.get('/lists/the_only_list/')
             self.assertTemplateUsed(response,"list.html")
+            
+class NewListTest(TestCase) :
+
+           def test_can_Save_post_request(self):
+                 response=self.client.post("/lists/new",data={'item_text': 'A new list item'})
+                 self.assertEqual(Item.objects.count(),1)
+                 item=Item.objects.first()
+                 self.assertEqual(item.to_do_list_value,"A new list item")
+                 
+           def test_redirects_After_post(self):
+                 response=self.client.post("/lists/new",data={'item_text': 'A new list item'})
+                 self.assertRedirects(response,"/lists/the_only_list/")

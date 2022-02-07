@@ -23,5 +23,6 @@ urlpatterns = [
     #url(r'',views.home_page,name='home')  #do not forget to add ,
     url(r'^$',views_ch7.home_page),
     url(r'^lists/the_only_list/$',views_ch7.view_list),
+    url(r'^lists/new',views_ch7.new_list)
 
 ]
