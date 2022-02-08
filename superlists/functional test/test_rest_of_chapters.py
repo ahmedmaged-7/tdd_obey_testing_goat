@@ -78,17 +78,15 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox.send_keys(Keys.ENTER)
         self.wait_for_row_in_table("id_new_table","1: Buy peacock feathers")
         inputbox = self.browser.find_element_by_id('the_to_do_item')
-                
-        edith_url=self.browser.current_url
-        self.assertRegex(edith_url,'/lists/.+')
         inputbox.send_keys('use peacok feathers to make a fly')        
         inputbox.send_keys(Keys.ENTER)
 
         
         self.wait_for_row_in_table("id_new_table","2: use peacok feathers to make a fly")
        
-
-
+        
+        edith_url=self.browser.current_url
+        self.assertRegex(edith_url,'/lists/.+')
         #a new user starts a session wants to add his items
 
         #a new hand touches the beacon :)
