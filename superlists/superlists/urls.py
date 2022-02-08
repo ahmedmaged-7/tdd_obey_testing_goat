@@ -22,7 +22,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     #url(r'',views.home_page,name='home')  #do not forget to add ,
     url(r'^$',views_ch7.home_page),
-    url(r'^lists/the_only_list/$',views_ch7.view_list),
-    url(r'^lists/new',views_ch7.new_list)
-
+    url(r'^lists/(\d+)/',views_ch7.view_list),#when i used the terrible "(./)" mad million error
+    url(r'^lists/new/',views_ch7.new_list)
 ]
