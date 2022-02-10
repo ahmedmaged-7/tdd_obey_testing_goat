@@ -2,7 +2,7 @@
 {% block header_text %} LIST ITEMS          {% endblock %}
   {%  block form_action  %} /lists/{{ list_of_items.id }}/add_item/        {% endblock %}
    {%block table %}     
-   <table id="id_new_table">
+   <table id="id_new_table" class="table">
   {% for item in list_of_items.item_set.all %}
         <tr><td>{{ forloop.counter }}: {{ item.to_do_list_value }}</td></tr>
       {% endfor %}
