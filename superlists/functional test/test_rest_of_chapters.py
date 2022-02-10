@@ -30,7 +30,16 @@ class NewVisitorTest(LiveServerTestCase):
                time.sleep(0.3)     
         
 
+    def test_the_name_and_input_are_centered(self):
+        self.browser.get(self.live_server_url)
+        self.browser.set_window_size(1024,768)
+        inputbox = self.browser.find_element_by_id('the_to_do_item')
+        #to test the center you want it's center in 512 but there are scrollbars so add a delta
+        # to have it's center in middle it it's center which is start+half input box size ==512  
+        self.assertAlmostEqual(inputbox.location['x'] + inputbox.size['width'] / 2,512,delta=10)
+                                                                  
 
+        
     def old_test_can_start_a_list_and_retrieve_it_later(self):
         # Edith has heard about a cool new online to-do app. She goes
         # to check out its homepage
